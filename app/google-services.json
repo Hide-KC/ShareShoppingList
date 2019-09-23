@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "582345611756",
+    "firebase_url": "https://shareshoppinglistapp.firebaseio.com",
+    "project_id": "shareshoppinglistapp",
+    "storage_bucket": "shareshoppinglistapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:582345611756:android:d14396072a96a84ab348c9",
+        "android_client_info": {
+          "package_name": "work.kcs_labo.share_shopping_list"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "582345611756-n70lt5qctbpbua1jn5646780vjvk4clh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxLfbz88DmXLhLUUSHuaD17r7rxNXRweI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "582345611756-n70lt5qctbpbua1jn5646780vjvk4clh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
