@@ -1,7 +1,8 @@
-package work.kcs_labo.share_shopping_list
+package work.kcs_labo.share_shopping_list.activity.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import work.kcs_labo.share_shopping_list.R
 
 class MainActivity : AppCompatActivity() {
 
