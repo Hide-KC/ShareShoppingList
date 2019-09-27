@@ -4,13 +4,13 @@
   xmlns:tools="http://schemas.android.com/tools">
 
   <data>
-
+    <variable name="viewModel" type="work.kcs_labo.share_shopping_list.activity.main.MainViewModel" />
   </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.main.MainActivity">
+    tools:context=".activity.main.MainAct">
 
 
   </androidx.constraintlayout.widget.ConstraintLayout>

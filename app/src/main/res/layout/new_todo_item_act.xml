@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
   <data>
-
+    <variable name="viewModel" type="work.kcs_labo.share_shopping_list.activity.new_todo_item.NewTodoItemViewModel" />
   </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout
