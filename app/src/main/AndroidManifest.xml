@@ -21,6 +21,21 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
+    <activity android:name=".activity.auth.AuthAct">
+
+    </activity>
+    <activity android:name=".activity.new_todo_item.NewTodoItemAct">
+
+    </activity>
+    <activity android:name=".activity.new_todo_list.NewTodoListAct">
+
+    </activity>
+    <activity android:name=".activity.profile.ProfileAct">
+
+    </activity>
+    <activity android:name=".activity.todo_item_list.TodoItemListAct">
+
+    </activity>
 
     <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
     <!-- https://firebase.google.com/docs/admob/android/quick-start?authuser=0-->
