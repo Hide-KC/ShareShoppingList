@@ -15,7 +15,7 @@ class MainAct : AppCompatActivity() {
     val binding = DataBindingUtil
       .setContentView<MainActBinding>(this, R.layout.main_act)
       .also {
-        it.viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        it.viewModel = ViewModelProviders.of(this).get(MainActViewModel::class.java)
       }
 
   }

@@ -4,7 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools">
 
   <data>
-    <variable name="viewModel" type="work.kcs_labo.share_shopping_list.activity.main.MainViewModel" />
+    <variable name="viewModel" type="work.kcs_labo.share_shopping_list.activity.main.MainActViewModel" />
   </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout
