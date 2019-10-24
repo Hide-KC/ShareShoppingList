@@ -5,9 +5,10 @@ import work.kcs_labo.share_shopping_list.data.source.local.TasksLocalDataSource
 import work.kcs_labo.share_shopping_list.data.source.remote.TasksRemoteDataSource
 
 class TasksRepository(
-  private val tasksLocalDataSource: TasksLocalDataSource,
-  private val tasksRemoteDataSource: TasksRemoteDataSource
+  private val tasksRemoteDataSource: TasksRemoteDataSource,
+  private val tasksLocalDataSource: TasksLocalDataSource
 ) : TasksDataSource {
+
   override fun findAll(): List<Task> {
     return tasksLocalDataSource.findAll()
   }
@@ -53,11 +54,11 @@ class TasksRepository(
     private val lock = Any()
 
     fun getInstance(
-      localDataSource: TasksLocalDataSource,
-      remoteDataSource: TasksRemoteDataSource
+      remoteDataSource: TasksRemoteDataSource,
+      localDataSource: TasksLocalDataSource
     ): TasksRepository =
       INSTANCE ?: synchronized(lock) {
-        INSTANCE ?: TasksRepository(localDataSource, remoteDataSource)
+        INSTANCE ?: TasksRepository(remoteDataSource, localDataSource)
           .also { INSTANCE = it }
       }
   }

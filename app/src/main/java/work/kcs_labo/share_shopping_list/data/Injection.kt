@@ -9,9 +9,10 @@ import work.kcs_labo.share_shopping_list.data.source.remote.TasksRemoteDataSourc
 object Injection {
   fun provideTasksRepository(context: Context): TasksRepository {
     val localDatabase = TasksLocalDatabase.getInstance(context)
+    val remoteDataSource = TasksRemoteDataSource.getInstance()
     return TasksRepository.getInstance(
-      TasksLocalDataSource.getInstance(localDatabase.tasksDao()),
-      TasksRemoteDataSource.getInstance()
+      remoteDataSource,
+      TasksLocalDataSource.getInstance(localDatabase.tasksDao())
     )
   }
 }

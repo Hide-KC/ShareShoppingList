@@ -1,9 +1,12 @@
 package work.kcs_labo.share_shopping_list.data.source.remote
 
+import com.google.firebase.firestore.FirebaseFirestore
 import work.kcs_labo.share_shopping_list.data.Task
 import work.kcs_labo.share_shopping_list.data.source.TasksDataSource
 
 class TasksRemoteDataSource : TasksDataSource {
+  private val db = FirebaseFirestore.getInstance()
+
   override fun findAll(): List<Task> {
     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
   }
