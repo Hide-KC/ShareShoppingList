@@ -32,14 +32,6 @@ android {
   }
 }
 
-ext {
-  fb_core_version = "17.2.0"
-  fb_store_version = "21.1.1"
-  fb_functions_version = "19.0.1"
-  fb_auth_version = "19.0.0"
-  fb_ads_version = "18.2.0"
-}
-
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
@@ -68,6 +60,12 @@ dependencies {
   // Room
   implementation "androidx.room:room-runtime:${versions.room}"
   kapt "androidx.room:room-compiler:${versions.room}"
+
+  // RecyclerView
+  implementation "androidx.recyclerview:recyclerview:${versions.recyclerview}"
+
+  // BottomAppBar, BottomNavigationView
+  implementation "com.google.android.material:material:${versions.material}"
 }
 
 apply plugin: 'com.google.gms.google-services'
