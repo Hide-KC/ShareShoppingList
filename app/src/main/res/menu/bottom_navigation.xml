@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+  <item
+    android:id="@+id/list"
+    android:icon="@drawable/ic_list_24px"
+    android:title="@string/list"
+    app:showAsAction="always"
+    />
+
+  <item
+    android:id="@+id/calendar"
+    android:icon="@android:drawable/ic_menu_month"
+    android:title="@string/calendar"
+    app:showAsAction="always"
+    />
+
+  <item
+    android:id="@+id/friends"
+    android:icon="@drawable/ic_people_24px"
+    android:title="@string/friends"
+    app:showAsAction="always"
+    />
+
+  <item
+    android:id="@+id/manage"
+    android:icon="@android:drawable/ic_menu_manage"
+    android:title="設定"
+    app:showAsAction="ifRoom"
+    />
+
+</menu>

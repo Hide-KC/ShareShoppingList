@@ -13,6 +13,11 @@
     android:theme="@style/AppTheme"
     android:allowBackup="false"
     android:fullBackupContent="@xml/backup_descriptor">
+
+    <meta-data
+      android:name="com.google.android.gms.ads.APPLICATION_ID"
+      android:value="@string/ads_app_id"/>
+
     <activity android:name=".activity.main.MainAct">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
