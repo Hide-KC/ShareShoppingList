@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:ads="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools">
+  xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <data>
-    <variable name="viewModel" type="work.kcs_labo.share_shopping_list.activity.main.MainActViewModel" />
+
+    <variable
+      name="viewModel"
+      type="work.kcs_labo.share_shopping_list.activity.main.MainActViewModel" />
   </data>
 
   <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -23,19 +25,19 @@
       <com.google.android.material.appbar.AppBarLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
           android:id="@+id/toolbar2"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_gravity="top"
           android:background="?attr/colorPrimary"
           android:minHeight="?attr/actionBarSize"
-          android:layout_gravity="top"
           android:theme="?attr/actionBarTheme"
-          app:layout_scrollFlags="scroll|enterAlways"/>
+          app:layout_scrollFlags="scroll|enterAlways" />
 
       </com.google.android.material.appbar.AppBarLayout>
 
@@ -45,20 +47,20 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottomAppBar"
         ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id" />
+        ads:adUnitId="@string/sample_banner_ad_unit_id"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
       <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomAppBar"
+        android:id="@+id/bottomNavigation"
         style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation">
 
       </com.google.android.material.bottomnavigation.BottomNavigationView>
