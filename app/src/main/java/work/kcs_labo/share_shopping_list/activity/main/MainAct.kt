@@ -1,15 +1,15 @@
 package work.kcs_labo.share_shopping_list.activity.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.main_act.*
 import work.kcs_labo.share_shopping_list.R
 import work.kcs_labo.share_shopping_list.databinding.MainActBinding
-import work.kcs_labo.share_shopping_list.util.ViewModelFactory
+import work.kcs_labo.share_shopping_list.util.obtainViewModel
 
 class MainAct : AppCompatActivity() {
 
@@ -19,9 +19,11 @@ class MainAct : AppCompatActivity() {
     val binding = DataBindingUtil
       .setContentView<MainActBinding>(this, R.layout.main_act)
       .also {
-        it.viewModel = ViewModelProviders.of(this, ViewModelFactory.getInstance(application))
-          .get(MainActViewModel::class.java)
+        it.viewModel = obtainViewModel()
+        it.lifecycleOwner = this
       }
+
+    setupWidget(binding)
 
     if (savedInstanceState == null) {
       MobileAds.initialize(this, getString(R.string.ads_app_id))
@@ -44,4 +46,32 @@ class MainAct : AppCompatActivity() {
     adView?.destroy()
     super.onDestroy()
   }
+
+  private fun setupWidget(binding: MainActBinding) {
+    binding.bottomNavigation.setOnNavigationItemSelectedListener {item ->
+      when(item.itemId) {
+        R.id.list -> {
+          Log.d("", item.itemId.toString())
+          return@setOnNavigationItemSelectedListener true
+        }
+        R.id.calendar -> {
+          Log.d("", item.itemId.toString())
+          return@setOnNavigationItemSelectedListener true
+        }
+        R.id.friends -> {
+          Log.d("", item.itemId.toString())
+          return@setOnNavigationItemSelectedListener true
+        }
+        R.id.manage -> {
+          Log.d("", item.itemId.toString())
+          return@setOnNavigationItemSelectedListener true
+        }
+        else -> {
+          throw IllegalArgumentException("Illegal itemId was selected")
+        }
+      }
+    }
+  }
+
+  fun obtainViewModel() = obtainViewModel(MainActViewModel::class.java)
 }
