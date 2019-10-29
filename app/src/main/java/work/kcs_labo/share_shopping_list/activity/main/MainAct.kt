@@ -48,6 +48,13 @@ class MainAct : AppCompatActivity() {
   }
 
   private fun setupWidget(binding: MainActBinding) {
+    binding.toolbar.let {
+      it.inflateMenu(R.menu.toolbar_menu)
+      it.setOnMenuItemClickListener(obtainViewModel())
+      it.setNavigationIcon(R.drawable.ic_person)
+
+    }
+
     binding.bottomNavigation.setOnNavigationItemSelectedListener {item ->
       when(item.itemId) {
         R.id.list -> {

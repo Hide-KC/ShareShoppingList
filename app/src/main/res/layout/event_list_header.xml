@@ -3,6 +3,7 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
+  xmlns:tools="http://schemas.android.com/tools"
   android:background="@android:color/transparent">
 
   <TextView
@@ -17,7 +18,7 @@
     android:paddingTop="@dimen/header_padding_vertical"
     android:paddingEnd="@dimen/header_padding_horizontal"
     android:paddingBottom="@dimen/header_padding_vertical"
-    android:text="12月31日"
+    tools:text="12月31日"
     android:textColor="@color/colorAccentDark"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
