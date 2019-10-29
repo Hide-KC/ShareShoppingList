@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ShareShoppingList</string>
+    <string name="friends">友だち</string>
+    <string name="calendar">カレンダー</string>
+    <string name="list">リスト</string>
+  <string name="profile">プロフィール</string>
 </resources>
