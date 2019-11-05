@@ -39,6 +39,13 @@ class EventListFragment : Fragment() {
           it.viewModel = viewModel
         }
 
+    setupWidget(binding)
+
+    return binding.root
+  }
+
+  private fun setupWidget(binding: EventListFragBinding) {
+
     val list = listOf(
       EventDate("2018-12-1"),
       Task(0, "hoge0", false.toString()),
@@ -78,7 +85,6 @@ class EventListFragment : Fragment() {
       it.addItemDecoration(decor)
       it.layoutManager = LinearLayoutManager(activity)
     }
-    return binding.root
   }
 
   companion object {

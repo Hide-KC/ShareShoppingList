@@ -61,10 +61,14 @@ class MainAct : AppCompatActivity() {
       it.setNavigationIcon(R.drawable.ic_person)
       it.setTitle(R.string.app_name)
       it.setOnMenuItemClickListener { menuItem ->
+        Log.d(this.javaClass.simpleName, "${menuItem.title} Clicked")
         when (menuItem.itemId) {
 
         }
         return@setOnMenuItemClickListener true
+      }
+      it.setNavigationOnClickListener {
+        Log.d(this.javaClass.simpleName, "Navigation Clicked")
       }
     }
 
