@@ -8,6 +8,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.main_act.*
 import work.kcs_labo.share_shopping_list.R
+import work.kcs_labo.share_shopping_list.activity.main.fragment.EventListFragment
 import work.kcs_labo.share_shopping_list.databinding.MainActBinding
 import work.kcs_labo.share_shopping_list.util.obtainViewModel
 
@@ -24,6 +25,7 @@ class MainAct : AppCompatActivity() {
       }
 
     setupWidget(binding)
+    setupFragment(binding)
 
     if (savedInstanceState == null) {
       MobileAds.initialize(this, getString(R.string.ads_app_id))
@@ -47,16 +49,31 @@ class MainAct : AppCompatActivity() {
     super.onDestroy()
   }
 
+  private fun setupFragment(binding: MainActBinding) {
+    val transaction = supportFragmentManager.beginTransaction()
+    transaction.replace(R.id.mainFrag, EventListFragment.getInstance(null))
+    transaction.commit()
+  }
+
   private fun setupWidget(binding: MainActBinding) {
     binding.toolbar.let {
       it.inflateMenu(R.menu.toolbar_menu)
-      it.setOnMenuItemClickListener(obtainViewModel())
       it.setNavigationIcon(R.drawable.ic_person)
+      it.setTitle(R.string.app_name)
+      it.setOnMenuItemClickListener { menuItem ->
+        Log.d(this.javaClass.simpleName, "${menuItem.title} Clicked")
+        when (menuItem.itemId) {
 
+        }
+        return@setOnMenuItemClickListener true
+      }
+      it.setNavigationOnClickListener {
+        Log.d(this.javaClass.simpleName, "Navigation Clicked")
+      }
     }
 
-    binding.bottomNavigation.setOnNavigationItemSelectedListener {item ->
-      when(item.itemId) {
+    binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
+      when (item.itemId) {
         R.id.list -> {
           Log.d("", item.itemId.toString())
           return@setOnNavigationItemSelectedListener true
@@ -80,5 +97,5 @@ class MainAct : AppCompatActivity() {
     }
   }
 
-  fun obtainViewModel() = obtainViewModel(MainActViewModel::class.java)
+  fun obtainViewModel(): MainActViewModel = obtainViewModel(MainActViewModel::class.java)
 }

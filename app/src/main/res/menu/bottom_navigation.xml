@@ -22,7 +22,7 @@
   <item
     android:id="@+id/manage"
     android:icon="@android:drawable/ic_menu_manage"
-    android:title="設定"
+    android:title="@string/settings"
     app:showAsAction="ifRoom" />
 
 </menu>

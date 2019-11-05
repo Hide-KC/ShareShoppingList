@@ -66,6 +66,13 @@ dependencies {
 
   // BottomAppBar, BottomNavigationView
   implementation "com.google.android.material:material:${versions.material}"
+
+  // PinningListView (My Bintray library)
+  implementation "work.kcs_labo:pinninglistview:${versions.pinninglistview}"
+
+  // Glide
+  implementation "com.github.bumptech.glide:glide:${versions.glide}"
+  kapt "com.github.bumptech.glide:compiler:${versions.glide}"
 }
 
 apply plugin: 'com.google.gms.google-services'
