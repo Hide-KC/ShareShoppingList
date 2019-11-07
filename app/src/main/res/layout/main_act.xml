@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:ads="http://schemas.android.com/apk/res-auto"
-  xmlns:bind="http://schemas.android.com/tools">
+  xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <data>
 
@@ -16,74 +15,69 @@
   <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.appbar.AppBarLayout
+      android:id="@+id/appBarLayout"
       android:layout_width="match_parent"
-      android:layout_height="match_parent">
+      android:layout_height="wrap_content"
+      android:layout_gravity="top">
 
-      <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="0dp"
+      <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_gravity="top"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_scrollFlags="scroll|enterAlways" />
 
-        <androidx.appcompat.widget.Toolbar
-          android:id="@+id/toolbar"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_gravity="top"
-          android:background="?attr/colorPrimary"
-          android:minHeight="?attr/actionBarSize"
-          android:theme="?attr/actionBarTheme"
-          app:layout_scrollFlags="scroll|enterAlways"
-          />
+    </com.google.android.material.appbar.AppBarLayout>
 
-      </com.google.android.material.appbar.AppBarLayout>
+    <FrameLayout
+      android:id="@+id/mainFrag"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"
+      />
 
-      <FrameLayout
-        android:id="@+id/mainFrag"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintBottom_toTopOf="@id/adView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appBarLayout">
+    <com.google.android.gms.ads.AdView
+      android:id="@+id/adView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerHorizontal="true"
+      ads:adSize="BANNER"
+      ads:adUnitId="@string/sample_banner_ad_unit_id"
+      android:layout_gravity="bottom|center"
+      android:layout_marginBottom="?attr/actionBarSize"
+      ads:layout_behavior=".list.BottomWidgetBehavior"
+      />
 
-      </FrameLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/floatingActionButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom|end"
+      android:layout_marginBottom="@dimen/fab_margin_bottom"
+      android:layout_marginEnd="@dimen/fab_margin_end"
+      android:backgroundTint="@color/colorAssort"
+      android:clickable="true"
+      android:focusable="true"
+      ads:srcCompat="@android:drawable/ic_input_add"
+      app:layout_scrollFlags="scroll|enterAlways" />
 
-      <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/sample_banner_ad_unit_id"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-      <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigation"
-        style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation">
-
-      </com.google.android.material.bottomnavigation.BottomNavigationView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+      android:id="@+id/bottomNavigation"
+      style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom"
+      ads:layout_behavior=".list.BottomWidgetBehavior"
+      app:menu="@menu/bottom_navigation"
+      />
 
   </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
 </layout>
