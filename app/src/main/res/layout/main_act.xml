@@ -15,7 +15,7 @@
   <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    >
 
     <com.google.android.material.appbar.AppBarLayout
       android:id="@+id/appBarLayout"
@@ -51,7 +51,7 @@
       ads:adUnitId="@string/sample_banner_ad_unit_id"
       android:layout_gravity="bottom|center"
       android:layout_marginBottom="?attr/actionBarSize"
-      ads:layout_behavior=".list.BottomWidgetBehavior"
+      ads:layout_behavior=".list.behavior.BottomWidgetBehavior"
       />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -65,7 +65,8 @@
       android:clickable="true"
       android:focusable="true"
       ads:srcCompat="@android:drawable/ic_input_add"
-      app:layout_scrollFlags="scroll|enterAlways" />
+      ads:layout_behavior=".list.behavior.FabBehavior"
+      />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
       android:id="@+id/bottomNavigation"
@@ -73,7 +74,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="bottom"
-      ads:layout_behavior=".list.BottomWidgetBehavior"
+      ads:layout_behavior=".list.behavior.BottomWidgetBehavior"
       app:menu="@menu/bottom_navigation"
       />
 
