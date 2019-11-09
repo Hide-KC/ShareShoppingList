@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name">ShareShoppingList</string>
-    <string name="friends">友だち</string>
-    <string name="calendar">カレンダー</string>
-    <string name="list">リスト</string>
+  <string name="app_name">ShareShoppingList</string>
+  <string name="friends">友だち</string>
+  <string name="calendar">カレンダー</string>
+  <string name="list">リスト</string>
   <string name="profile">プロフィール</string>
   <string name="settings">設定</string>
+  <string name="search_event_name">イベントを検索</string>
+  <string name="register_event_dialog_title">イベントの登録</string>
 </resources>

@@ -1,4 +1,4 @@
-package work.kcs_labo.share_shopping_list.list
+package work.kcs_labo.share_shopping_list.list.event_list
 
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +22,17 @@ class EventListAdapter(private val list: List<Any>, @LayoutRes override val head
     const val SECTION_ITEM = 201
   }
 
+  private var headerClickListener: View.OnClickListener? = null
+  private var itemClickListener: View.OnClickListener? = null
+
+  fun setHeaderClickListener(listener: View.OnClickListener?) {
+    this.headerClickListener = listener
+  }
+
+  fun setItemClickListener(listener: View.OnClickListener?) {
+    this.itemClickListener = listener
+  }
+
   override fun bindHeaderData(header: View, adapterPosition: Int) {
     val item = list[adapterPosition] as EventDate
     header.eventDate.text = item.eventDate
@@ -32,10 +43,13 @@ class EventListAdapter(private val list: List<Any>, @LayoutRes override val head
       is EventDateViewHolder -> {
         val item = list[adapterPosition] as EventDate
         holder.eventDate.text = item.eventDate
+        holder.setHeaderClickListener(this.headerClickListener)
+
       }
       is EventItemViewHolder -> {
         val item = list[adapterPosition] as Task
         holder.eventName.text = item.name
+        holder.setItemClickListener(this.itemClickListener)
       }
       else -> {
         throw IllegalArgumentException("<${list[adapterPosition].javaClass}> class is not declared in Adapter.")
@@ -47,7 +61,9 @@ class EventListAdapter(private val list: List<Any>, @LayoutRes override val head
     val inflater = LayoutInflater.from(parent.context)
     return when {
       viewType == SECTION_HEADER && headerLayout != null -> {
-        EventDateViewHolder(DataBindingUtil.inflate(inflater, headerLayout, parent, false))
+        EventDateViewHolder(
+          DataBindingUtil.inflate(inflater, headerLayout, parent, false)
+        )
       }
       viewType == SECTION_ITEM -> {
         EventItemViewHolder(
@@ -59,7 +75,7 @@ class EventListAdapter(private val list: List<Any>, @LayoutRes override val head
           )
         )
       }
-      else -> throw IllegalArgumentException("hoge")
+      else -> throw IllegalArgumentException(this.javaClass.simpleName)
     }
   }
 
@@ -76,12 +92,33 @@ class EventListAdapter(private val list: List<Any>, @LayoutRes override val head
       }
     }
 
-  class EventDateViewHolder(binding: EventListHeaderBinding) :
+  class EventDateViewHolder(private val binding: EventListHeaderBinding) :
     RecyclerView.ViewHolder(binding.root) {
     val eventDate: TextView = binding.root.eventDate
+
+//    init {
+//      binding.root.setOnClickListener {
+//        Log.d(javaClass.simpleName, it.eventDate.text.toString())
+//      }
+//    }
+
+    fun setHeaderClickListener(listener: View.OnClickListener?) {
+      this.binding.root.setOnClickListener(listener)
+    }
   }
 
-  class EventItemViewHolder(binding: EventListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+  class EventItemViewHolder(private val binding: EventListItemBinding) :
+    RecyclerView.ViewHolder(binding.root) {
     val eventName: TextView = binding.root.eventName
+
+//    init {
+//      binding.root.setOnClickListener {
+//        Log.d(javaClass.simpleName, it.eventName.text.toString())
+//      }
+//    }
+
+    fun setItemClickListener(listener: View.OnClickListener?) {
+      this.binding.root.setOnClickListener(listener)
+    }
   }
 }

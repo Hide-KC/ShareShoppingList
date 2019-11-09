@@ -1,55 +1,48 @@
-package work.kcs_labo.share_shopping_list.activity.main.fragment;
+package work.kcs_labo.share_shopping_list.activity.main.fragment
 
+import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.event_list_header.view.*
-import kotlinx.android.synthetic.main.event_list_item.view.*
-import kotlinx.android.synthetic.main.register_event_dialog.view.*
 import work.kcs_labo.pinninglistview.PinningListDecoration
 import work.kcs_labo.share_shopping_list.R
 import work.kcs_labo.share_shopping_list.activity.main.MainAct
 import work.kcs_labo.share_shopping_list.data.Task
-import work.kcs_labo.share_shopping_list.databinding.EventListFragBinding
+import work.kcs_labo.share_shopping_list.databinding.RegisterEventDialogBinding
 import work.kcs_labo.share_shopping_list.list.event_list.EventDate
 import work.kcs_labo.share_shopping_list.list.event_list.EventListAdapter
 
-/**
- * Created by hide1 on 2019/10/26.
- * ProjectName ShareShoppingList
- */
+class RegisterEventDialogFragment : DialogFragment() {
 
-class EventListFragment : Fragment() {
+  override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View? {
-    val viewModel = (activity as MainAct).obtainViewModel()
-    val binding =
-      DataBindingUtil.inflate<EventListFragBinding>(
-        inflater,
-        R.layout.event_list_frag,
-        container,
-        false
-      )
-        .also {
-          it.viewModel = viewModel
-        }
-
-    setupWidget(binding)
-
-    return binding.root
+    when (val activity = this.activity) {
+      is MainAct -> {
+        val viewModel = activity.obtainViewModel()
+        val inflater = LayoutInflater.from(activity)
+        val binding = DataBindingUtil.inflate<RegisterEventDialogBinding>(
+          inflater,
+          R.layout.register_event_dialog,
+          null,
+          false
+        )
+        setupWidget(binding)
+        val builder = AlertDialog.Builder(activity)
+          .also {
+            it.setView(binding.root)
+            it.setTitle(getString(R.string.register_event_dialog_title))
+            it.setNegativeButton(activity.getString(android.R.string.cancel)) { _, _ -> }
+          }
+        return builder.create()
+      }
+      else -> return super.onCreateDialog(savedInstanceState)
+    }
   }
 
-  private fun setupWidget(binding: EventListFragBinding) {
+  private fun setupWidget(binding: RegisterEventDialogBinding) {
 
     val list = listOf(
       EventDate("2018-12-1"),
@@ -86,14 +79,7 @@ class EventListFragment : Fragment() {
     val adapter = EventListAdapter(
       list,
       R.layout.event_list_header
-    ).also {
-      it.setHeaderClickListener(View.OnClickListener { view ->
-        Log.d(javaClass.simpleName, view.eventDate.text.toString())
-      })
-      it.setItemClickListener(View.OnClickListener { view ->
-        Log.d(javaClass.simpleName, view.eventName.text.toString())
-      })
-    }
+    )
     val decor = PinningListDecoration(adapter)
     binding.eventListView.let {
       it.adapter = adapter
@@ -103,8 +89,8 @@ class EventListFragment : Fragment() {
   }
 
   companion object {
-    fun getInstance(bundle: Bundle?): EventListFragment {
-      val fragment = EventListFragment()
+    fun getInstance(bundle: Bundle?): RegisterEventDialogFragment {
+      val fragment = RegisterEventDialogFragment()
       if (bundle != null) {
         fragment.arguments = bundle
       }
