@@ -64,8 +64,8 @@
       android:backgroundTint="@color/colorAssort"
       android:clickable="true"
       android:focusable="true"
-      ads:srcCompat="@android:drawable/ic_input_add"
-      ads:layout_behavior=".list.behavior.FabBehavior"
+      app:srcCompat="@android:drawable/ic_input_add"
+      app:layout_behavior=".list.behavior.FabBehavior"
       />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -74,7 +74,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="bottom"
-      ads:layout_behavior=".list.behavior.BottomWidgetBehavior"
+      app:layout_behavior=".list.behavior.BottomWidgetBehavior"
       app:menu="@menu/bottom_navigation"
       />
 
