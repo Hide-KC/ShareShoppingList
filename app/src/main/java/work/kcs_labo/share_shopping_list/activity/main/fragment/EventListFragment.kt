@@ -5,20 +5,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.event_list_header.view.*
 import kotlinx.android.synthetic.main.event_list_item.view.*
-import kotlinx.android.synthetic.main.register_event_dialog.view.*
 import work.kcs_labo.pinninglistview.PinningListDecoration
+import work.kcs_labo.pinninglistview.PinningListHeaderExtractor
 import work.kcs_labo.share_shopping_list.R
 import work.kcs_labo.share_shopping_list.activity.main.MainAct
 import work.kcs_labo.share_shopping_list.data.Task
 import work.kcs_labo.share_shopping_list.databinding.EventListFragBinding
 import work.kcs_labo.share_shopping_list.list.event_list.EventDate
 import work.kcs_labo.share_shopping_list.list.event_list.EventListAdapter
+import kotlin.reflect.KProperty1
 
 /**
  * Created by hide1 on 2019/10/26.
@@ -52,36 +52,26 @@ class EventListFragment : Fragment() {
   private fun setupWidget(binding: EventListFragBinding) {
 
     val list = listOf(
-      EventDate("2018-12-1"),
-      Task(0, "hoge0", false.toString()),
-      Task(1, "hoge1", false.toString()),
-      EventDate("2018-12-2"),
-      Task(2, "hoge3", false.toString()),
-      Task(3, "hoge4", false.toString()),
-      EventDate("2018-12-3"),
-      Task(4, "hoge5", false.toString()),
-      Task(5, "hoge6", false.toString()),
-      EventDate("2018-12-4"),
-      Task(6, "hoge7", false.toString()),
-      Task(7, "hoge8", false.toString()),
-      EventDate("2018-12-5"),
-      Task(8, "hoge9", false.toString()),
-      Task(9, "hoge10", false.toString()),
-      EventDate("2018-12-6"),
-      Task(10, "hoge11", false.toString()),
-      Task(11, "hoge12", false.toString()),
-      EventDate("2018-12-7"),
-      Task(12, "hoge13", false.toString()),
-      Task(13, "hoge14", false.toString()),
-      EventDate("2018-12-8"),
-      Task(14, "hoge15", false.toString()),
-      Task(15, "hoge16", false.toString()),
-      EventDate("2018-12-9"),
-      Task(16, "hoge17", false.toString()),
-      Task(17, "hoge18", false.toString()),
-      EventDate("2018-12-10"),
-      Task(18, "hoge19", false.toString()),
-      Task(19, "hoge20", false.toString())
+      Task(0, "2019-1-1", "hoge0", false.toString()),
+      Task(1, "2019-1-1", "hoge1", false.toString()),
+      Task(2, "2019-1-1", "hoge3", false.toString()),
+      Task(3, "2019-1-1", "hoge4", false.toString()),
+      Task(4, "2019-1-2", "hoge5", false.toString()),
+      Task(5, "2019-1-2", "hoge6", false.toString()),
+      Task(6, "2019-1-2", "hoge7", false.toString()),
+      Task(7, "2019-1-3", "hoge8", false.toString()),
+      Task(8, "2019-1-3", "hoge9", false.toString()),
+      Task(9, "2019-1-4", "hoge10", false.toString()),
+      Task(10, "2019-1-4", "hoge11", false.toString()),
+      Task(11, "2019-1-4", "hoge12", false.toString()),
+      Task(12, "2019-1-5", "hoge13", false.toString()),
+      Task(13, "2019-1-5", "hoge14", false.toString()),
+      Task(14, "2019-1-6", "hoge15", false.toString()),
+      Task(15, "2019-1-6", "hoge16", false.toString()),
+      Task(16, "2019-1-7", "hoge17", false.toString()),
+      Task(17, "2019-1-8", "hoge18", false.toString()),
+      Task(18, "2019-1-8", "hoge19", false.toString()),
+      Task(19, "2019-1-8", "hoge20", false.toString())
     )
     val adapter = EventListAdapter(
       list,
@@ -93,7 +83,17 @@ class EventListFragment : Fragment() {
       it.setItemClickListener(View.OnClickListener { view ->
         Log.d(javaClass.simpleName, view.eventName.text.toString())
       })
+      it.setExtractor(object : PinningListHeaderExtractor<Task, String, EventDate> {
+        override val referenceHeaderProperty: KProperty1<Task, String>
+          get() = Task::date
+
+        override fun createElement(sectionTopElement: Task): EventDate {
+          return EventDate(sectionTopElement.date)
+        }
+      })
+      it.extractHeader()
     }
+
     val decor = PinningListDecoration(adapter)
     binding.eventListView.let {
       it.adapter = adapter

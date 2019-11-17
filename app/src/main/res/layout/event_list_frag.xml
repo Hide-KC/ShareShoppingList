@@ -8,10 +8,21 @@
       type="work.kcs_labo.share_shopping_list.activity.main.MainActViewModel" />
   </data>
 
-  <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/eventListView"
+  <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    />
+    android:layout_height="wrap_content">
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/eventListView"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </layout>

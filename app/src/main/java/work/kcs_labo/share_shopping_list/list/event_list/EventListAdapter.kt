@@ -15,8 +15,8 @@ import work.kcs_labo.share_shopping_list.data.Task
 import work.kcs_labo.share_shopping_list.databinding.EventListHeaderBinding
 import work.kcs_labo.share_shopping_list.databinding.EventListItemBinding
 
-class EventListAdapter(private val list: List<Any>, @LayoutRes override val headerLayout: Int?) :
-  PinningListAdapter<Any, RecyclerView.ViewHolder>(list) {
+class EventListAdapter(list: List<Task>, @LayoutRes override val headerLayout: Int?) :
+  PinningListAdapter<Task, String, EventDate, RecyclerView.ViewHolder>(list) {
 
   companion object Constants {
     const val SECTION_ITEM = 201
@@ -34,25 +34,25 @@ class EventListAdapter(private val list: List<Any>, @LayoutRes override val head
   }
 
   override fun bindHeaderData(header: View, adapterPosition: Int) {
-    val item = list[adapterPosition] as EventDate
+    val item = innerList[adapterPosition] as EventDate
     header.eventDate.text = item.eventDate
   }
 
   override fun onBindViewHolder(holder: RecyclerView.ViewHolder, adapterPosition: Int) {
     when (holder) {
       is EventDateViewHolder -> {
-        val item = list[adapterPosition] as EventDate
+        val item = innerList[adapterPosition] as EventDate
         holder.eventDate.text = item.eventDate
         holder.setHeaderClickListener(this.headerClickListener)
 
       }
       is EventItemViewHolder -> {
-        val item = list[adapterPosition] as Task
+        val item = innerList[adapterPosition] as Task
         holder.eventName.text = item.name
         holder.setItemClickListener(this.itemClickListener)
       }
       else -> {
-        throw IllegalArgumentException("<${list[adapterPosition].javaClass}> class is not declared in Adapter.")
+        throw IllegalArgumentException("<${innerList[adapterPosition].javaClass}> class is not declared in Adapter.")
       }
     }
   }
@@ -79,28 +79,18 @@ class EventListAdapter(private val list: List<Any>, @LayoutRes override val head
     }
   }
 
-  override fun getItemViewType(position: Int): Int =
-    when (list[position]) {
-      is Task -> {
-        SECTION_ITEM
-      }
-      is EventDate -> {
-        SECTION_HEADER
-      }
+  override fun getItemViewType(adapterPosition: Int): Int =
+    when (innerList[adapterPosition]) {
+      is Task -> SECTION_ITEM
+      is EventDate -> SECTION_HEADER
       else -> {
-        throw IllegalArgumentException("<${list[position].javaClass}> class is not declared in Adapter.")
+        throw IllegalArgumentException("<${innerList[adapterPosition].javaClass}> class is not declared in Adapter.")
       }
     }
 
   class EventDateViewHolder(private val binding: EventListHeaderBinding) :
     RecyclerView.ViewHolder(binding.root) {
     val eventDate: TextView = binding.root.eventDate
-
-//    init {
-//      binding.root.setOnClickListener {
-//        Log.d(javaClass.simpleName, it.eventDate.text.toString())
-//      }
-//    }
 
     fun setHeaderClickListener(listener: View.OnClickListener?) {
       this.binding.root.setOnClickListener(listener)
@@ -110,12 +100,6 @@ class EventListAdapter(private val list: List<Any>, @LayoutRes override val head
   class EventItemViewHolder(private val binding: EventListItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
     val eventName: TextView = binding.root.eventName
-
-//    init {
-//      binding.root.setOnClickListener {
-//        Log.d(javaClass.simpleName, it.eventName.text.toString())
-//      }
-//    }
 
     fun setItemClickListener(listener: View.OnClickListener?) {
       this.binding.root.setOnClickListener(listener)

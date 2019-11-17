@@ -21,29 +21,17 @@ class FabBehavior(context: Context, attrs: AttributeSet) :
     return axes == ViewCompat.SCROLL_AXIS_VERTICAL
   }
 
-  override fun onNestedScroll(
+  override fun onNestedPreScroll(
     coordinatorLayout: CoordinatorLayout,
     child: FloatingActionButton,
     target: View,
-    dxConsumed: Int,
-    dyConsumed: Int,
-    dxUnconsumed: Int,
-    dyUnconsumed: Int,
-    type: Int,
-    consumed: IntArray
+    dx: Int,
+    dy: Int,
+    consumed: IntArray,
+    type: Int
   ) {
-    super.onNestedScroll(
-      coordinatorLayout,
-      child,
-      target,
-      dxConsumed,
-      dyConsumed,
-      dxUnconsumed,
-      dyUnconsumed,
-      type,
-      consumed
-    )
-    if (dyConsumed > 0 && child.visibility == View.VISIBLE) {
+    super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type)
+    if (dy > 0 && child.visibility == View.VISIBLE) {
       // User scrolled down and the FAB is currently visible -> hide the FAB
       child.hide(object : FloatingActionButton.OnVisibilityChangedListener() {
         override fun onHidden(fab: FloatingActionButton?) {
@@ -51,7 +39,7 @@ class FabBehavior(context: Context, attrs: AttributeSet) :
           fab?.visibility = View.INVISIBLE
         }
       })
-    } else if (dyConsumed < 0 && child.visibility != View.VISIBLE) {
+    } else if (dy < 0 && child.visibility != View.VISIBLE) {
       // User scrolled up and the FAB is currently not visible -> show the FAB
       child.show()
     }

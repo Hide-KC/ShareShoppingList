@@ -11,6 +11,7 @@ import work.kcs_labo.share_shopping_list.R
 import work.kcs_labo.share_shopping_list.activity.main.fragment.EventListFragment
 import work.kcs_labo.share_shopping_list.activity.main.fragment.RegisterEventDialogFragment
 import work.kcs_labo.share_shopping_list.databinding.MainActBinding
+import work.kcs_labo.share_shopping_list.util.ViewModelFactory
 import work.kcs_labo.share_shopping_list.util.obtainViewModel
 
 class MainAct : AppCompatActivity() {
@@ -47,6 +48,7 @@ class MainAct : AppCompatActivity() {
 
   override fun onDestroy() {
     adView?.destroy()
+    ViewModelFactory.destroyInstance()
     super.onDestroy()
   }
 
