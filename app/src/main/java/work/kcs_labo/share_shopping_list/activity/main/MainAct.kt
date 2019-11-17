@@ -9,7 +9,9 @@ import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.main_act.*
 import work.kcs_labo.share_shopping_list.R
 import work.kcs_labo.share_shopping_list.activity.main.fragment.EventListFragment
+import work.kcs_labo.share_shopping_list.activity.main.fragment.RegisterEventDialogFragment
 import work.kcs_labo.share_shopping_list.databinding.MainActBinding
+import work.kcs_labo.share_shopping_list.util.ViewModelFactory
 import work.kcs_labo.share_shopping_list.util.obtainViewModel
 
 class MainAct : AppCompatActivity() {
@@ -46,6 +48,7 @@ class MainAct : AppCompatActivity() {
 
   override fun onDestroy() {
     adView?.destroy()
+    ViewModelFactory.destroyInstance()
     super.onDestroy()
   }
 
@@ -70,6 +73,11 @@ class MainAct : AppCompatActivity() {
       it.setNavigationOnClickListener {
         Log.d(this.javaClass.simpleName, "Navigation Clicked")
       }
+    }
+
+    binding.floatingActionButton.setOnClickListener {
+      val dialog = RegisterEventDialogFragment.getInstance(null)
+      dialog.show(supportFragmentManager, null)
     }
 
     binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->

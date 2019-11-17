@@ -6,21 +6,18 @@ import androidx.lifecycle.ViewModelProvider
 import work.kcs_labo.share_shopping_list.activity.auth.AuthViewModel
 import work.kcs_labo.share_shopping_list.activity.main.MainActViewModel
 import work.kcs_labo.share_shopping_list.activity.profile.ProfileViewModel
-import work.kcs_labo.share_shopping_list.data.Injection
-import work.kcs_labo.share_shopping_list.data.source.TasksRepository
 
 class ViewModelFactory private constructor(
-  private val app: Application,
-  private val tasksRepository: TasksRepository
+  private val app: Application
 ) : ViewModelProvider.NewInstanceFactory() {
 
   override fun <T : ViewModel> create(modelClass: Class<T>) =
     with(modelClass) {
       when {
         isAssignableFrom(MainActViewModel::class.java) ->
-          MainActViewModel(app, tasksRepository)
+          MainActViewModel(app)
         isAssignableFrom(ProfileViewModel::class.java) ->
-          ProfileViewModel(app, tasksRepository)
+          ProfileViewModel(app)
         isAssignableFrom(AuthViewModel::class.java) ->
           AuthViewModel(app)
         else ->
@@ -33,7 +30,7 @@ class ViewModelFactory private constructor(
 
     fun getInstance(app: Application): ViewModelFactory =
       INSTANCE ?: synchronized(ViewModelFactory::class.java) {
-        INSTANCE ?: ViewModelFactory(app, Injection.provideTasksRepository(app.applicationContext))
+        INSTANCE ?: ViewModelFactory(app)
           .also { INSTANCE = it }
       }
 
