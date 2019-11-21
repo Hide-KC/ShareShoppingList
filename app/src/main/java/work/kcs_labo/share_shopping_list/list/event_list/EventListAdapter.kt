@@ -33,26 +33,33 @@ class EventListAdapter(list: List<Task>, @LayoutRes override val headerLayout: I
     this.itemClickListener = listener
   }
 
+  fun updateList(newList: List<Task>) {
+    fetch(newList)
+    extractHeader()
+    notifyDataSetChanged()
+  }
+
   override fun bindHeaderData(header: View, adapterPosition: Int) {
-    val item = innerList[adapterPosition] as EventDate
+    val item = getInnerListItem(adapterPosition) as EventDate
     header.eventDate.text = item.eventDate
   }
 
   override fun onBindViewHolder(holder: RecyclerView.ViewHolder, adapterPosition: Int) {
     when (holder) {
       is EventDateViewHolder -> {
-        val item = innerList[adapterPosition] as EventDate
+        val item = getInnerListItem(adapterPosition) as EventDate
         holder.eventDate.text = item.eventDate
         holder.setHeaderClickListener(this.headerClickListener)
-
+        holder.binding.executePendingBindings()
       }
       is EventItemViewHolder -> {
-        val item = innerList[adapterPosition] as Task
+        val item = getInnerListItem(adapterPosition) as Task
         holder.eventName.text = item.name
         holder.setItemClickListener(this.itemClickListener)
+        holder.binding.executePendingBindings()
       }
       else -> {
-        throw IllegalArgumentException("<${innerList[adapterPosition].javaClass}> class is not declared in Adapter.")
+        throw IllegalArgumentException("<${getInnerListItem(adapterPosition).javaClass}> class is not declared in Adapter.")
       }
     }
   }
@@ -80,15 +87,15 @@ class EventListAdapter(list: List<Task>, @LayoutRes override val headerLayout: I
   }
 
   override fun getItemViewType(adapterPosition: Int): Int =
-    when (innerList[adapterPosition]) {
+    when (getInnerListItem(adapterPosition)) {
       is Task -> SECTION_ITEM
       is EventDate -> SECTION_HEADER
       else -> {
-        throw IllegalArgumentException("<${innerList[adapterPosition].javaClass}> class is not declared in Adapter.")
+        throw IllegalArgumentException("<${getInnerListItem(adapterPosition).javaClass}> class is not declared in Adapter.")
       }
     }
 
-  class EventDateViewHolder(private val binding: EventListHeaderBinding) :
+  class EventDateViewHolder(val binding: EventListHeaderBinding) :
     RecyclerView.ViewHolder(binding.root) {
     val eventDate: TextView = binding.root.eventDate
 
@@ -97,7 +104,7 @@ class EventListAdapter(list: List<Task>, @LayoutRes override val headerLayout: I
     }
   }
 
-  class EventItemViewHolder(private val binding: EventListItemBinding) :
+  class EventItemViewHolder(val binding: EventListItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
     val eventName: TextView = binding.root.eventName
 
