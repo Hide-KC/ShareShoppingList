@@ -8,18 +8,6 @@
     app:showAsAction="always" />
 
   <item
-    android:id="@+id/calendar"
-    android:icon="@android:drawable/ic_menu_month"
-    android:title="@string/calendar"
-    app:showAsAction="always" />
-
-  <item
-    android:id="@+id/friends"
-    android:icon="@drawable/ic_people_24px"
-    android:title="@string/friends"
-    app:showAsAction="always" />
-
-  <item
     android:id="@+id/manage"
     android:icon="@android:drawable/ic_menu_manage"
     android:title="@string/settings"

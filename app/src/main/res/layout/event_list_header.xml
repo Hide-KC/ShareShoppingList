@@ -4,7 +4,9 @@
   xmlns:tools="http://schemas.android.com/tools">
 
   <data>
-
+    <variable
+      name="model"
+      type="work.kcs_labo.share_shopping_list.list.event_list.EventDate" />
   </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +26,7 @@
       android:paddingTop="@dimen/header_padding_vertical"
       android:paddingEnd="@dimen/header_padding_horizontal"
       android:paddingBottom="@dimen/header_padding_vertical"
-      tools:text="12月31日"
+      tools:text="@{model.eventStartDate}"
       android:textColor="@color/colorAccentDark"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"

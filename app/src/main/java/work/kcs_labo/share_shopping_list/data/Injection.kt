@@ -1,18 +1,18 @@
 package work.kcs_labo.share_shopping_list.data
 
 import android.content.Context
-import work.kcs_labo.share_shopping_list.data.source.TasksRepository
-import work.kcs_labo.share_shopping_list.data.source.local.TasksLocalDatabase
-import work.kcs_labo.share_shopping_list.data.source.local.TasksLocalDataSource
-import work.kcs_labo.share_shopping_list.data.source.remote.TasksRemoteDataSource
+import work.kcs_labo.share_shopping_list.data.source.EventsRepository
+import work.kcs_labo.share_shopping_list.data.source.local.EventsLocalDataSource
+import work.kcs_labo.share_shopping_list.data.source.local.EventsLocalDatabase
+import work.kcs_labo.share_shopping_list.data.source.remote.EventsRemoteDataSource
 
 object Injection {
-  fun provideTasksRepository(context: Context): TasksRepository {
-    val localDatabase = TasksLocalDatabase.getInstance(context)
-    val remoteDataSource = TasksRemoteDataSource.getInstance()
-    return TasksRepository.getInstance(
+  fun provideTasksRepository(context: Context): EventsRepository {
+    val localDatabase = EventsLocalDatabase.getInstance(context)
+    val remoteDataSource = EventsRemoteDataSource.getInstance()
+    return EventsRepository.getInstance(
       remoteDataSource,
-      TasksLocalDataSource.getInstance(localDatabase.tasksDao())
+      EventsLocalDataSource.getInstance(localDatabase.eventsDao())
     )
   }
 }

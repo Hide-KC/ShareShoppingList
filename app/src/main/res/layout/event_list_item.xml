@@ -4,7 +4,9 @@
   xmlns:tools="http://schemas.android.com/tools">
 
   <data>
-
+    <variable
+      name="model"
+      type="work.kcs_labo.share_shopping_list.data.Event" />
   </data>
 
   <androidx.cardview.widget.CardView
@@ -33,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        tools:text="EventName"
+        tools:text="@{model.eventName}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/eventIcon"
         app:layout_constraintTop_toTopOf="@+id/eventIcon" />

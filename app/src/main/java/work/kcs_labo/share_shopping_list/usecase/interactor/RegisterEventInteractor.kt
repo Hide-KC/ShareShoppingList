@@ -1,16 +1,20 @@
 package work.kcs_labo.share_shopping_list.usecase.interactor
 
-import work.kcs_labo.share_shopping_list.data.Task
-import work.kcs_labo.share_shopping_list.data.source.TasksRepository
+import work.kcs_labo.share_shopping_list.data.Event
+import work.kcs_labo.share_shopping_list.data.source.EventsRepository
 import work.kcs_labo.share_shopping_list.usecase.RegisterEventUseCase
 
-class RegisterEventInteractor(private val repository: TasksRepository) :
+class RegisterEventInteractor(private val repository: EventsRepository) :
   RegisterEventUseCase {
-  override fun getEvents(): List<Task> {
+  override fun updateEvent(event: Event) {
+    repository.update(event)
+  }
+
+  override fun getEvents(): List<Event> {
     return repository.findAll()
   }
 
-  override fun getEvent(id: Long): Task {
+  override fun getEvent(id: Long): Event {
     return repository.find(id)
   }
 
@@ -23,7 +27,7 @@ class RegisterEventInteractor(private val repository: TasksRepository) :
     return repository.deleteAll()
   }
 
-  override fun registerEvent(task: Task) {
-    repository.insert(task)
+  override fun registerEvent(event: Event) {
+    repository.insert(event)
   }
 }

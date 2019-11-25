@@ -11,12 +11,12 @@ import kotlinx.android.synthetic.main.event_list_header.view.*
 import kotlinx.android.synthetic.main.event_list_item.view.*
 import work.kcs_labo.pinninglistview.PinningListAdapter
 import work.kcs_labo.share_shopping_list.R
-import work.kcs_labo.share_shopping_list.data.Task
+import work.kcs_labo.share_shopping_list.data.Event
 import work.kcs_labo.share_shopping_list.databinding.EventListHeaderBinding
 import work.kcs_labo.share_shopping_list.databinding.EventListItemBinding
 
-class EventListAdapter(list: List<Task>, @LayoutRes override val headerLayout: Int?) :
-  PinningListAdapter<Task, String, EventDate, RecyclerView.ViewHolder>(list) {
+class EventListAdapter(list: List<Event>, @LayoutRes override val headerLayout: Int?) :
+  PinningListAdapter<Event, String, EventDate, RecyclerView.ViewHolder>(list) {
 
   companion object Constants {
     const val SECTION_ITEM = 201
@@ -33,7 +33,7 @@ class EventListAdapter(list: List<Task>, @LayoutRes override val headerLayout: I
     this.itemClickListener = listener
   }
 
-  fun updateList(newList: List<Task>) {
+  fun updateList(newList: List<Event>) {
     fetch(newList)
     extractHeader()
     notifyDataSetChanged()
@@ -41,20 +41,20 @@ class EventListAdapter(list: List<Task>, @LayoutRes override val headerLayout: I
 
   override fun bindHeaderData(header: View, adapterPosition: Int) {
     val item = getInnerListItem(adapterPosition) as EventDate
-    header.eventDate.text = item.eventDate
+    header.eventDate.text = item.eventStartDate
   }
 
   override fun onBindViewHolder(holder: RecyclerView.ViewHolder, adapterPosition: Int) {
     when (holder) {
       is EventDateViewHolder -> {
         val item = getInnerListItem(adapterPosition) as EventDate
-        holder.eventDate.text = item.eventDate
+        holder.eventDate.text = item.eventStartDate
         holder.setHeaderClickListener(this.headerClickListener)
         holder.binding.executePendingBindings()
       }
       is EventItemViewHolder -> {
-        val item = getInnerListItem(adapterPosition) as Task
-        holder.eventName.text = item.name
+        val item = getInnerListItem(adapterPosition) as Event
+        holder.eventName.text = item.eventName
         holder.setItemClickListener(this.itemClickListener)
         holder.binding.executePendingBindings()
       }
@@ -88,7 +88,7 @@ class EventListAdapter(list: List<Task>, @LayoutRes override val headerLayout: I
 
   override fun getItemViewType(adapterPosition: Int): Int =
     when (getInnerListItem(adapterPosition)) {
-      is Task -> SECTION_ITEM
+      is Event -> SECTION_ITEM
       is EventDate -> SECTION_HEADER
       else -> {
         throw IllegalArgumentException("<${getInnerListItem(adapterPosition).javaClass}> class is not declared in Adapter.")

@@ -86,14 +86,6 @@ class MainAct : AppCompatActivity() {
           Log.d("", item.itemId.toString())
           return@setOnNavigationItemSelectedListener true
         }
-        R.id.calendar -> {
-          Log.d("", item.itemId.toString())
-          return@setOnNavigationItemSelectedListener true
-        }
-        R.id.friends -> {
-          Log.d("", item.itemId.toString())
-          return@setOnNavigationItemSelectedListener true
-        }
         R.id.manage -> {
           Log.d("", item.itemId.toString())
           return@setOnNavigationItemSelectedListener true
