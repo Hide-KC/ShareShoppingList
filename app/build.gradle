@@ -48,6 +48,7 @@ dependencies {
   implementation "com.google.firebase:firebase-functions-ktx:${versions.firebase_functions}"
   implementation "com.google.firebase:firebase-auth:${versions.firebase_auth}"
   implementation "com.google.firebase:firebase-ads:${versions.firebase_ads}"
+  implementation "com.google.firebase:firebase-storage:${versions.firebase_storage}"
 
   //Robolectric
   testImplementation "org.robolectric:robolectric:${versions.robolectric}"

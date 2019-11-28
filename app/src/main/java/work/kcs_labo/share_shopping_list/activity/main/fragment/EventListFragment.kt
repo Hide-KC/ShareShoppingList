@@ -51,7 +51,19 @@ class EventListFragment : Fragment() {
 
   private fun setupWidget(binding: EventListFragBinding) {
 
-    val list = listOf<Event>()
+    val list = listOf<Event>(
+      Event(0, "hoge", "fuga", "2020-01-01", "2020-01-02", "foo"),
+      Event(0, "hoge", "fuga", "2020-01-01", "2020-01-02", "foo"),
+      Event(0, "hoge", "fuga", "2020-01-02", "2020-01-02", "foo"),
+      Event(0, "hoge", "fuga", "2020-01-02", "2020-01-02", "foo"),
+      Event(0, "hoge", "fuga", "2020-01-03", "2020-01-02", "foo"),
+      Event(0, "hoge", "fuga", "2020-01-03", "2020-01-02", "foo"),
+      Event(0, "hoge", "fuga", "2020-01-04", "2020-01-02", "foo"),
+      Event(0, "hoge", "fuga", "2020-01-04", "2020-01-02", "foo"),
+      Event(0, "hoge", "fuga", "2020-01-05", "2020-01-02", "foo"),
+      Event(0, "hoge", "fuga", "2020-01-05", "2020-01-02", "foo"),
+      Event(0, "hoge", "fuga", "2020-01-06", "2020-01-02", "foo")
+    )
     val adapter = EventListAdapter(
       list,
       R.layout.event_list_header

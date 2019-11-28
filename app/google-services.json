@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "582345611756-otg4cjhdqu6rbrhm53o7hnnohpbkelpf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "work.kcs_labo.share_shopping_list",
+            "certificate_hash": "670ba91adb37a63c215edffbd2416a38c0dab93d"
+          }
+        },
+        {
           "client_id": "582345611756-n70lt5qctbpbua1jn5646780vjvk4clh.apps.googleusercontent.com",
           "client_type": 3
         }
