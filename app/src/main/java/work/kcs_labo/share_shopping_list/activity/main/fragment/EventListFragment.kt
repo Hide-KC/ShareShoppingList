@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.event_list_header.view.*
 import kotlinx.android.synthetic.main.event_list_item.view.*
@@ -73,6 +74,11 @@ class EventListFragment : Fragment() {
       })
       it.setItemClickListener(View.OnClickListener { view ->
         Log.d(javaClass.simpleName, view.eventName.text.toString())
+        binding.viewModel?.onOpenCircleListLiveData?.observe(this, Observer {eventWrapper ->
+          eventWrapper.getContentIfNotHandled()?.let {
+            (activity as MainAct).startCircleListAct(eventWrapper.peekContent())
+          }
+        })
       })
       it.setExtractor(object : PinningListHeaderExtractor<Event, String, EventDate> {
         override val referenceHeaderProperty: KProperty1<Event, String>

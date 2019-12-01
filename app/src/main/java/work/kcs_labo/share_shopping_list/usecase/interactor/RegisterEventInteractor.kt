@@ -14,17 +14,21 @@ class RegisterEventInteractor(private val repository: EventsRepository) :
     return repository.findAll()
   }
 
-  override fun getEvent(id: Long): Event {
-    return repository.find(id)
+  override fun getEvent(eventId: Long): Event {
+    return repository.find(eventId)
   }
 
-  override fun deleteEvent(id: Long): Int {
-    val task = repository.find(id)
-    return repository.delete(task)
+  override fun deleteEvent(event: Event) {
+    repository.delete(event)
   }
 
-  override fun deleteEventAll(): Int {
-    return repository.deleteAll()
+  override fun deleteEvent(eventId: Long) {
+    val task = repository.find(eventId)
+    repository.delete(task)
+  }
+
+  override fun deleteEventAll() {
+    repository.deleteAll()
   }
 
   override fun registerEvent(event: Event) {

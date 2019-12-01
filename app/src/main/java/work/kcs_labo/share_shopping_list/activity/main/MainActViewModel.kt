@@ -2,13 +2,19 @@ package work.kcs_labo.share_shopping_list.activity.main
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import work.kcs_labo.share_shopping_list.data.Event
 import work.kcs_labo.share_shopping_list.data.Injection
 import work.kcs_labo.share_shopping_list.usecase.RegisterEventUseCase
 import work.kcs_labo.share_shopping_list.usecase.interactor.RegisterEventInteractor
+import work.kcs_labo.share_shopping_list.util.EventWrapper
 
 class MainActViewModel(val app: Application) : AndroidViewModel(app) {
+
+  private val _onOpenCircleListLiveData = MutableLiveData<EventWrapper<Event>>()
+  val onOpenCircleListLiveData: LiveData<EventWrapper<Event>>
+  get() = _onOpenCircleListLiveData
 
   private val eventListLiveData = MutableLiveData<List<Event>>()
   private val useCase: RegisterEventUseCase =
@@ -17,6 +23,11 @@ class MainActViewModel(val app: Application) : AndroidViewModel(app) {
         app.applicationContext
       )
     )
+
+  fun onOpenCircleListAct(eventId: Long) {
+    val event = useCase.getEvent(eventId)
+    _onOpenCircleListLiveData.value = EventWrapper(event)
+  }
 
   fun registerEvent(event: Event) {
     useCase.registerEvent(event)

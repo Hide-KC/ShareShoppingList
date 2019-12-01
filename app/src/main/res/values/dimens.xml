@@ -5,4 +5,5 @@
   <dimen name="header_padding_horizontal">8dp</dimen>
   <dimen name="fab_margin_bottom">108dp</dimen>
   <dimen name="fab_margin_end">24dp</dimen>
+  <dimen name="image_corner_radius">8dp</dimen>
 </resources>

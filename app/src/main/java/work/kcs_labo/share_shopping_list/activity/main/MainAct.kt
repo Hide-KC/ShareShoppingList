@@ -1,5 +1,6 @@
 package work.kcs_labo.share_shopping_list.activity.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -8,13 +9,21 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.main_act.*
 import work.kcs_labo.share_shopping_list.R
+import work.kcs_labo.share_shopping_list.activity.circle_list.CircleListAct
 import work.kcs_labo.share_shopping_list.activity.main.fragment.EventListFragment
 import work.kcs_labo.share_shopping_list.activity.main.fragment.RegisterEventDialogFragment
+import work.kcs_labo.share_shopping_list.data.Event
 import work.kcs_labo.share_shopping_list.databinding.MainActBinding
 import work.kcs_labo.share_shopping_list.util.ViewModelFactory
 import work.kcs_labo.share_shopping_list.util.obtainViewModel
 
 class MainAct : AppCompatActivity() {
+
+  fun startCircleListAct(event: Event) {
+    val intent = Intent(this, CircleListAct::class.java)
+    intent.putExtra("eventId", event.id)
+    startActivity(intent)
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
