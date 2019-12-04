@@ -19,6 +19,7 @@ import work.kcs_labo.share_shopping_list.data.Event
 import work.kcs_labo.share_shopping_list.databinding.EventListFragBinding
 import work.kcs_labo.share_shopping_list.list.event_list.EventDate
 import work.kcs_labo.share_shopping_list.list.event_list.EventListAdapter
+import work.kcs_labo.share_shopping_list.util.EventWrapper
 import kotlin.reflect.KProperty1
 
 /**
@@ -69,16 +70,17 @@ class EventListFragment : Fragment() {
       list,
       R.layout.event_list_header
     ).also {
-      it.setHeaderClickListener(View.OnClickListener { view ->
-        Log.d(javaClass.simpleName, view.eventDate.text.toString())
+      it.setHeaderClickListener(object : EventListAdapter.OnContentsClickListener<EventDate> {
+        override fun onContentsClick(eventDTO: EventListAdapter.OnContentsClickListener.EventDTO<EventDate>) {
+          val eventDate = eventDTO.data
+          Log.d(this.javaClass.simpleName, eventDate.eventStartDate)
+        }
       })
-      it.setItemClickListener(View.OnClickListener { view ->
-        Log.d(javaClass.simpleName, view.eventName.text.toString())
-        binding.viewModel?.onOpenCircleListLiveData?.observe(this, Observer {eventWrapper ->
-          eventWrapper.getContentIfNotHandled()?.let {
-            (activity as MainAct).startCircleListAct(eventWrapper.peekContent())
-          }
-        })
+      it.setItemClickListener(object : EventListAdapter.OnContentsClickListener<Event> {
+        override fun onContentsClick(eventDTO: EventListAdapter.OnContentsClickListener.EventDTO<Event>) {
+          val event = eventDTO.data
+          binding.viewModel?.onOpenCircleListAct(event.id)
+        }
       })
       it.setExtractor(object : PinningListHeaderExtractor<Event, String, EventDate> {
         override val referenceHeaderProperty: KProperty1<Event, String>
@@ -90,6 +92,12 @@ class EventListFragment : Fragment() {
       })
       it.extractHeader()
     }
+
+    binding.viewModel?.onOpenCircleListLiveData?.observe(this, Observer {eventWrapper ->
+      eventWrapper.getContentIfNotHandled()?.let {
+        (activity as MainAct).startCircleListAct(eventWrapper.peekContent())
+      }
+    })
 
     val decor = PinningListDecoration(adapter)
     binding.eventListView.let {

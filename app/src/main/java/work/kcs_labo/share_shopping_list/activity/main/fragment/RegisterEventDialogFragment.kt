@@ -55,11 +55,17 @@ class RegisterEventDialogFragment : DialogFragment() {
       list,
       R.layout.event_list_header
     ).also {
-      it.setHeaderClickListener(View.OnClickListener { view ->
-        Log.d(javaClass.simpleName, view.eventDate.text.toString())
+      it.setHeaderClickListener(object : EventListAdapter.OnContentsClickListener<EventDate> {
+        override fun onContentsClick(eventDTO: EventListAdapter.OnContentsClickListener.EventDTO<EventDate>) {
+          val eventDate = eventDTO.data
+          Log.d(javaClass.simpleName, eventDate.eventStartDate)
+        }
       })
-      it.setItemClickListener(View.OnClickListener { view ->
-        Log.d(javaClass.simpleName, view.eventName.text.toString())
+      it.setItemClickListener(object : EventListAdapter.OnContentsClickListener<Event> {
+        override fun onContentsClick(eventDTO: EventListAdapter.OnContentsClickListener.EventDTO<Event>) {
+          val event = eventDTO.data
+          Log.d(javaClass.simpleName, event.id.toString())
+        }
       })
       it.setExtractor(object : PinningListHeaderExtractor<Event, String, EventDate> {
         override val referenceHeaderProperty: KProperty1<Event, String>

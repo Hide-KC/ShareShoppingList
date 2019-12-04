@@ -20,14 +20,14 @@ class EventListAdapter(list: List<Event>, @LayoutRes override val headerLayout: 
     const val SECTION_ITEM = 201
   }
 
-  private var headerClickListener: View.OnClickListener? = null
-  private var itemClickListener: View.OnClickListener? = null
+  private var headerClickListener: OnContentsClickListener<EventDate>? = null
+  private var itemClickListener: OnContentsClickListener<Event>? = null
 
-  fun setHeaderClickListener(listener: View.OnClickListener?) {
+  fun setHeaderClickListener(listener: OnContentsClickListener<EventDate>?) {
     this.headerClickListener = listener
   }
 
-  fun setItemClickListener(listener: View.OnClickListener?) {
+  fun setItemClickListener(listener: OnContentsClickListener<Event>?) {
     this.itemClickListener = listener
   }
 
@@ -90,15 +90,35 @@ class EventListAdapter(list: List<Event>, @LayoutRes override val headerLayout: 
 
   class EventDateViewHolder(val binding: EventListHeaderBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun setHeaderClickListener(listener: View.OnClickListener?) {
-      this.binding.root.setOnClickListener(listener)
+    fun setHeaderClickListener(listener: OnContentsClickListener<EventDate>?) {
+      this.binding.root.setOnClickListener {
+        this.binding.root.setOnClickListener {
+          val eventDate = binding.model
+          if (eventDate != null) {
+            listener?.onContentsClick(OnContentsClickListener.EventDTO(eventDate))
+          }
+        }
+      }
     }
   }
 
   class EventItemViewHolder(val binding: EventListItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun setItemClickListener(listener: View.OnClickListener?) {
-      this.binding.root.setOnClickListener(listener)
+    fun setItemClickListener(listener: OnContentsClickListener<Event>?) {
+      this.binding.root.setOnClickListener {
+        val event = binding.model
+        if (event != null) {
+          listener?.onContentsClick(OnContentsClickListener.EventDTO(event))
+        }
+      }
     }
+  }
+
+  interface OnContentsClickListener<T> {
+    fun onContentsClick(eventDTO: EventDTO<T>)
+
+    data class EventDTO<T>(
+      val data : T
+    )
   }
 }

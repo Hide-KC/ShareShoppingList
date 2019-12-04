@@ -4,6 +4,9 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import work.kcs_labo.share_shopping_list.data.Event
 import work.kcs_labo.share_shopping_list.data.Injection
 import work.kcs_labo.share_shopping_list.usecase.RegisterEventUseCase
@@ -25,12 +28,16 @@ class MainActViewModel(val app: Application) : AndroidViewModel(app) {
     )
 
   fun onOpenCircleListAct(eventId: Long) {
-    val event = useCase.getEvent(eventId)
-    _onOpenCircleListLiveData.value = EventWrapper(event)
+    viewModelScope.launch(Dispatchers.IO) {
+      val event = useCase.getEvent(eventId)
+      _onOpenCircleListLiveData.postValue(EventWrapper(event))
+    }
   }
 
   fun registerEvent(event: Event) {
-    useCase.registerEvent(event)
+    viewModelScope.launch(Dispatchers.IO) {
+      useCase.registerEvent(event)
+    }
   }
 
   fun getEvents(): List<Event> {
