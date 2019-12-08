@@ -12,16 +12,17 @@ import work.kcs_labo.share_shopping_list.R
 import work.kcs_labo.share_shopping_list.activity.circle_list.CircleListAct
 import work.kcs_labo.share_shopping_list.activity.main.fragment.EventListFragment
 import work.kcs_labo.share_shopping_list.activity.main.fragment.RegisterEventDialogFragment
-import work.kcs_labo.share_shopping_list.data.Event
+import work.kcs_labo.share_shopping_list.data.Fest
+import work.kcs_labo.share_shopping_list.data.source.AppRepository
 import work.kcs_labo.share_shopping_list.databinding.MainActBinding
 import work.kcs_labo.share_shopping_list.util.ViewModelFactory
 import work.kcs_labo.share_shopping_list.util.obtainViewModel
 
 class MainAct : AppCompatActivity() {
 
-  fun startCircleListAct(event: Event) {
+  fun startCircleListAct(fest: Fest) {
     val intent = Intent(this, CircleListAct::class.java)
-    intent.putExtra("eventId", event.id)
+    intent.putExtra("eventId", fest.id)
     startActivity(intent)
   }
 
@@ -58,6 +59,7 @@ class MainAct : AppCompatActivity() {
   override fun onDestroy() {
     adView?.destroy()
     ViewModelFactory.destroyInstance()
+    AppRepository.destroyInstance()
     super.onDestroy()
   }
 

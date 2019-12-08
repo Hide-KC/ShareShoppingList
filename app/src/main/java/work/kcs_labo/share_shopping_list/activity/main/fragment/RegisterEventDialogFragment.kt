@@ -4,21 +4,18 @@ import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.event_list_header.view.*
-import kotlinx.android.synthetic.main.event_list_item.view.*
 import work.kcs_labo.pinninglistview.PinningListDecoration
 import work.kcs_labo.pinninglistview.PinningListHeaderExtractor
 import work.kcs_labo.share_shopping_list.R
 import work.kcs_labo.share_shopping_list.activity.main.MainAct
-import work.kcs_labo.share_shopping_list.data.Event
+import work.kcs_labo.share_shopping_list.data.Fest
 import work.kcs_labo.share_shopping_list.databinding.RegisterEventDialogBinding
-import work.kcs_labo.share_shopping_list.list.event_list.EventDate
-import work.kcs_labo.share_shopping_list.list.event_list.EventListAdapter
+import work.kcs_labo.share_shopping_list.list.event_list.FestDate
+import work.kcs_labo.share_shopping_list.list.event_list.FestListAdapter
 import kotlin.reflect.KProperty1
 
 class RegisterEventDialogFragment : DialogFragment() {
@@ -50,29 +47,29 @@ class RegisterEventDialogFragment : DialogFragment() {
 
   private fun setupWidget(binding: RegisterEventDialogBinding) {
 
-    val list = listOf<Event>()
-    val adapter = EventListAdapter(
+    val list = listOf<Fest>()
+    val adapter = FestListAdapter(
       list,
       R.layout.event_list_header
     ).also {
-      it.setHeaderClickListener(object : EventListAdapter.OnContentsClickListener<EventDate> {
-        override fun onContentsClick(eventDTO: EventListAdapter.OnContentsClickListener.EventDTO<EventDate>) {
-          val eventDate = eventDTO.data
-          Log.d(javaClass.simpleName, eventDate.eventStartDate)
+      it.setHeaderClickListener(object : FestListAdapter.OnContentsClickListener<FestDate> {
+        override fun onContentsClick(festDTO: FestListAdapter.OnContentsClickListener.ContentDTO<FestDate>) {
+          val eventDate = festDTO.data
+          Log.d(javaClass.simpleName, eventDate.startDate)
         }
       })
-      it.setItemClickListener(object : EventListAdapter.OnContentsClickListener<Event> {
-        override fun onContentsClick(eventDTO: EventListAdapter.OnContentsClickListener.EventDTO<Event>) {
-          val event = eventDTO.data
+      it.setItemClickListener(object : FestListAdapter.OnContentsClickListener<Fest> {
+        override fun onContentsClick(festDTO: FestListAdapter.OnContentsClickListener.ContentDTO<Fest>) {
+          val event = festDTO.data
           Log.d(javaClass.simpleName, event.id.toString())
         }
       })
-      it.setExtractor(object : PinningListHeaderExtractor<Event, String, EventDate> {
-        override val referenceHeaderProperty: KProperty1<Event, String>
-          get() = Event::eventStartDate
+      it.setExtractor(object : PinningListHeaderExtractor<Fest, String, FestDate> {
+        override val referenceHeaderProperty: KProperty1<Fest, String>
+          get() = Fest::startDate
 
-        override fun createElement(sectionTopElement: Event): EventDate {
-          return EventDate(sectionTopElement.eventStartDate)
+        override fun createElement(sectionTopElement: Fest): FestDate {
+          return FestDate(sectionTopElement.startDate)
         }
       })
       it.extractHeader()

@@ -77,6 +77,9 @@ dependencies {
 
   // AndroidSVG
   implementation "com.caverock:androidsvg-aar:${versions.android_svg}"
+
+  // Coroutines
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:${versions.coroutines}"
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -7,21 +7,25 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import work.kcs_labo.share_shopping_list.data.Event
+import work.kcs_labo.share_shopping_list.data.Fest
 import work.kcs_labo.share_shopping_list.data.Injection
-import work.kcs_labo.share_shopping_list.usecase.RegisterEventUseCase
-import work.kcs_labo.share_shopping_list.usecase.interactor.RegisterEventInteractor
+import work.kcs_labo.share_shopping_list.data.RemoteDataSourceCallback
+import work.kcs_labo.share_shopping_list.usecase.FestControlUseCase
+import work.kcs_labo.share_shopping_list.usecase.interactor.FestControlInteractor
 import work.kcs_labo.share_shopping_list.util.EventWrapper
 
 class MainActViewModel(val app: Application) : AndroidViewModel(app) {
 
-  private val _onOpenCircleListLiveData = MutableLiveData<EventWrapper<Event>>()
-  val onOpenCircleListLiveData: LiveData<EventWrapper<Event>>
-  get() = _onOpenCircleListLiveData
+  private val _onOpenCircleListLiveData = MutableLiveData<EventWrapper<Fest>>()
+  val onOpenCircleListLiveData: LiveData<EventWrapper<Fest>>
+    get() = _onOpenCircleListLiveData
 
-  private val eventListLiveData = MutableLiveData<List<Event>>()
-  private val useCase: RegisterEventUseCase =
-    RegisterEventInteractor(
+  private val _festListLiveData = MutableLiveData<List<Fest>>()
+  val festListLiveData: LiveData<List<Fest>>
+    get() = _festListLiveData
+
+  private val useCase: FestControlUseCase =
+    FestControlInteractor(
       Injection.provideTasksRepository(
         app.applicationContext
       )
@@ -29,26 +33,41 @@ class MainActViewModel(val app: Application) : AndroidViewModel(app) {
 
   fun onOpenCircleListAct(eventId: Long) {
     viewModelScope.launch(Dispatchers.IO) {
-      val event = useCase.getEvent(eventId)
-      _onOpenCircleListLiveData.postValue(EventWrapper(event))
+      val fest = useCase.getFest(eventId)
+      fest?.let {
+        _onOpenCircleListLiveData.postValue(EventWrapper(it))
+      }
     }
   }
 
-  fun registerEvent(event: Event) {
+  fun registerFest(fest: Fest) {
     viewModelScope.launch(Dispatchers.IO) {
-      useCase.registerEvent(event)
+      useCase.registerFest(fest)
     }
   }
 
-  fun getEvents(): List<Event> {
+  fun getFests() {
+    viewModelScope.launch(Dispatchers.IO) {
+      launch {
+        val fests = useCase.getFests(object : RemoteDataSourceCallback<Fest> {
+          override fun onResult(contents: List<Fest>) {
+            _festListLiveData.postValue(contents)
+          }
+        })
+        _festListLiveData.postValue(fests)
+      }
+    }
+  }
+
+  fun getFest(id: Int) {
     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
   }
 
-  fun getEvent(id: Int): Event {
+  fun deleteFest(id: Int) {
     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
   }
 
-  fun deleteEvent(id: Int): Boolean {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+  override fun onCleared() {
+    super.onCleared()
   }
 }

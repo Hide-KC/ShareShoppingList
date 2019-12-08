@@ -9,49 +9,49 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.event_list_header.view.*
 import work.kcs_labo.pinninglistview.PinningListAdapter
 import work.kcs_labo.share_shopping_list.R
-import work.kcs_labo.share_shopping_list.data.Event
+import work.kcs_labo.share_shopping_list.data.Fest
 import work.kcs_labo.share_shopping_list.databinding.EventListHeaderBinding
 import work.kcs_labo.share_shopping_list.databinding.EventListItemBinding
 
-class EventListAdapter(list: List<Event>, @LayoutRes override val headerLayout: Int?) :
-  PinningListAdapter<Event, String, EventDate, RecyclerView.ViewHolder>(list) {
+class FestListAdapter(list: List<Fest>, @LayoutRes override val headerLayout: Int?) :
+  PinningListAdapter<Fest, String, FestDate, RecyclerView.ViewHolder>(list) {
 
   companion object Constants {
     const val SECTION_ITEM = 201
   }
 
-  private var headerClickListener: OnContentsClickListener<EventDate>? = null
-  private var itemClickListener: OnContentsClickListener<Event>? = null
+  private var headerClickListener: OnContentsClickListener<FestDate>? = null
+  private var itemClickListener: OnContentsClickListener<Fest>? = null
 
-  fun setHeaderClickListener(listener: OnContentsClickListener<EventDate>?) {
+  fun setHeaderClickListener(listener: OnContentsClickListener<FestDate>?) {
     this.headerClickListener = listener
   }
 
-  fun setItemClickListener(listener: OnContentsClickListener<Event>?) {
+  fun setItemClickListener(listener: OnContentsClickListener<Fest>?) {
     this.itemClickListener = listener
   }
 
-  fun updateList(newList: List<Event>) {
+  fun updateList(newList: List<Fest>) {
     fetch(newList)
     extractHeader()
     notifyDataSetChanged()
   }
 
   override fun bindHeaderData(header: View, adapterPosition: Int) {
-    val item = getInnerListItem(adapterPosition) as EventDate
-    header.eventDate.text = item.eventStartDate
+    val item = getInnerListItem(adapterPosition) as FestDate
+    header.eventDate.text = item.startDate
   }
 
   override fun onBindViewHolder(holder: RecyclerView.ViewHolder, adapterPosition: Int) {
     when (holder) {
       is EventDateViewHolder -> {
-        val item = getInnerListItem(adapterPosition) as EventDate
+        val item = getInnerListItem(adapterPosition) as FestDate
         holder.binding.model = item
         holder.setHeaderClickListener(this.headerClickListener)
         holder.binding.executePendingBindings()
       }
       is EventItemViewHolder -> {
-        val item = getInnerListItem(adapterPosition) as Event
+        val item = getInnerListItem(adapterPosition) as Fest
         holder.binding.model = item
         holder.setItemClickListener(this.itemClickListener)
         holder.binding.executePendingBindings()
@@ -81,8 +81,8 @@ class EventListAdapter(list: List<Event>, @LayoutRes override val headerLayout: 
 
   override fun getItemViewType(adapterPosition: Int): Int =
     when (getInnerListItem(adapterPosition)) {
-      is EventDate -> SECTION_HEADER
-      is Event -> SECTION_ITEM
+      is FestDate -> SECTION_HEADER
+      is Fest -> SECTION_ITEM
       else -> {
         throw IllegalArgumentException("<${getInnerListItem(adapterPosition).javaClass}> class is not declared in Adapter.")
       }
@@ -90,12 +90,12 @@ class EventListAdapter(list: List<Event>, @LayoutRes override val headerLayout: 
 
   class EventDateViewHolder(val binding: EventListHeaderBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun setHeaderClickListener(listener: OnContentsClickListener<EventDate>?) {
+    fun setHeaderClickListener(listener: OnContentsClickListener<FestDate>?) {
       this.binding.root.setOnClickListener {
         this.binding.root.setOnClickListener {
           val eventDate = binding.model
           if (eventDate != null) {
-            listener?.onContentsClick(OnContentsClickListener.EventDTO(eventDate))
+            listener?.onContentsClick(OnContentsClickListener.ContentDTO(eventDate))
           }
         }
       }
@@ -104,21 +104,21 @@ class EventListAdapter(list: List<Event>, @LayoutRes override val headerLayout: 
 
   class EventItemViewHolder(val binding: EventListItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun setItemClickListener(listener: OnContentsClickListener<Event>?) {
+    fun setItemClickListener(listener: OnContentsClickListener<Fest>?) {
       this.binding.root.setOnClickListener {
         val event = binding.model
         if (event != null) {
-          listener?.onContentsClick(OnContentsClickListener.EventDTO(event))
+          listener?.onContentsClick(OnContentsClickListener.ContentDTO(event))
         }
       }
     }
   }
 
   interface OnContentsClickListener<T> {
-    fun onContentsClick(eventDTO: EventDTO<T>)
+    fun onContentsClick(contentDTO: ContentDTO<T>)
 
-    data class EventDTO<T>(
-      val data : T
+    data class ContentDTO<T>(
+      val data: T
     )
   }
 }

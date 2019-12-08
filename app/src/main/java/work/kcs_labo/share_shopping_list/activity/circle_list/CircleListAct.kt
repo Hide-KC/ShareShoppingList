@@ -1,7 +1,6 @@
 package work.kcs_labo.share_shopping_list.activity.circle_list
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import work.kcs_labo.share_shopping_list.R
 import work.kcs_labo.share_shopping_list.activity.circle_list.fragment.CircleListFragment
@@ -16,9 +15,9 @@ class CircleListAct : AppCompatActivity() {
     val eventId = this.intent.getIntExtra("eventId", -1)
     if (eventId >= 0) {
       val viewModel = obtainViewModel()
-      val circleList = viewModel.getCircles(eventId)
-      val toast = Toast.makeText(this, circleList.size, Toast.LENGTH_SHORT)
-      toast.show()
+//      val circleList = viewModel.getCircles(eventId)
+//      val toast = Toast.makeText(this, circleList.size, Toast.LENGTH_SHORT)
+//      toast.show()
     }
 
     setupWidget()

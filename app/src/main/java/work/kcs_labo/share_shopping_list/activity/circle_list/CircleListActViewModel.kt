@@ -4,6 +4,9 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import work.kcs_labo.share_shopping_list.data.Circle
 import work.kcs_labo.share_shopping_list.data.Injection
 import work.kcs_labo.share_shopping_list.usecase.CircleControlUseCase
@@ -14,7 +17,7 @@ class CircleListActViewModel(val app: Application) : AndroidViewModel(app) {
 
   private val _onOpenCircleDetailLiveData = MutableLiveData<EventWrapper<Unit>>()
   val onOpenCircleDetailLiveData: LiveData<EventWrapper<Unit>>
-  get() = _onOpenCircleDetailLiveData
+    get() = _onOpenCircleDetailLiveData
 
   private val circleListLiveData = MutableLiveData<List<Circle>>()
   private val useCase: CircleControlUseCase =
@@ -25,14 +28,18 @@ class CircleListActViewModel(val app: Application) : AndroidViewModel(app) {
     )
 
   fun onOpenCircleDetail() {
-    _onOpenCircleDetailLiveData.value = EventWrapper(Unit)
+    viewModelScope.launch(Dispatchers.IO) {
+      _onOpenCircleDetailLiveData.postValue(EventWrapper(Unit))
+    }
   }
 
-  fun registerEvent(circle: Circle) {
-    useCase.registerCircle(circle)
+  fun registerCircle(circle: Circle) {
+    viewModelScope.launch(Dispatchers.IO) {
+      useCase.registerCircle(circle)
+    }
   }
 
-  fun getCircles(eventId: Int): List<Circle> {
+  suspend fun getCircles(eventId: Int): List<Circle> {
     return useCase.getCircles(eventId)
   }
 

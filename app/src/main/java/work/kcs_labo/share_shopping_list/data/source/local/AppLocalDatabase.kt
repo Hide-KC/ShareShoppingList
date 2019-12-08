@@ -5,22 +5,21 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import work.kcs_labo.share_shopping_list.data.Circle
-import work.kcs_labo.share_shopping_list.data.Event
+import work.kcs_labo.share_shopping_list.data.Fest
 
-@Database(entities = [Event::class, Circle::class], version = 1, exportSchema = false)
-abstract class EventsLocalDatabase : RoomDatabase() {
-  abstract fun eventsDao(): EventDao
-  abstract fun circleDao(): CircleDao
+@Database(entities = [Fest::class, Circle::class], version = 1, exportSchema = false)
+abstract class AppLocalDatabase : RoomDatabase() {
+  abstract fun appDao(): AppDao
 
   companion object {
-    private var INSTANCE: EventsLocalDatabase? = null
+    private var INSTANCE: AppLocalDatabase? = null
     private val lock = Any()
 
-    fun getInstance(context: Context): EventsLocalDatabase =
+    fun getInstance(context: Context): AppLocalDatabase =
       INSTANCE ?: synchronized(lock) {
         INSTANCE ?: Room.databaseBuilder(
           context.applicationContext,
-          EventsLocalDatabase::class.java, "Events.db"
+          AppLocalDatabase::class.java, "AppLocal.db"
         )
           .build()
           .also { INSTANCE = it }

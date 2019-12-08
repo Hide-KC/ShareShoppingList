@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import work.kcs_labo.share_shopping_list.activity.auth.AuthViewModel
+import work.kcs_labo.share_shopping_list.activity.circle_list.CircleListActViewModel
 import work.kcs_labo.share_shopping_list.activity.main.MainActViewModel
 import work.kcs_labo.share_shopping_list.activity.profile.ProfileViewModel
 
@@ -20,6 +21,8 @@ class ViewModelFactory private constructor(
           ProfileViewModel(app)
         isAssignableFrom(AuthViewModel::class.java) ->
           AuthViewModel(app)
+        isAssignableFrom(CircleListActViewModel::class.java) ->
+          CircleListActViewModel(app)
         else ->
           throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
       }
